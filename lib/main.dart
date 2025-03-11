@@ -53,12 +53,18 @@ class _AppRootState extends State<AppRoot> {
         },
         selectedIndex: currentPageIndex,
         destinations: [
-          NavigationDestination(icon: Icon(Icons.sports_bar), label: "Spel"),
           NavigationDestination(
-            icon: Icon(Icons.qr_code_scanner),
+            icon: const Icon(Icons.sports_bar),
+            label: "Spel",
+          ),
+          NavigationDestination(
+            icon: const Icon(Icons.qr_code_scanner),
             label: "Deelnemen",
           ),
-          NavigationDestination(icon: Icon(Icons.account_circle), label: "Jij"),
+          NavigationDestination(
+            icon: const Icon(Icons.account_circle),
+            label: "Jij",
+          ),
         ],
       ),
 

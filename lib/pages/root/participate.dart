@@ -5,6 +5,6 @@ class ParticipatePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(child: Text("Participate page!"));
+    return const Center(child: Text("Participate page!"));
   }
 }

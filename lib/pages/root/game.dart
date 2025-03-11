@@ -10,17 +10,19 @@ class GamePage extends StatelessWidget {
     return ListView(
       children: [
         ListTile(
-          leading: Icon(Icons.star),
-          trailing: Icon(Icons.chevron_right),
-          title: Text("Nieuw spel"),
-          subtitle: Text("Start een nieuw spel"),
+          leading: const Icon(Icons.star),
+          trailing: const Icon(Icons.chevron_right),
+          title: const Text("Nieuw spel"),
+          subtitle: const Text("Start een nieuw spel"),
         ),
         const Divider(),
         ListTile(
-          leading: Icon(Icons.apps),
-          trailing: Icon(Icons.chevron_right),
-          title: Text("Kaartenspellen"),
-          subtitle: Text("Bekijk, verwijder, deel en pas kaartenspellen aan"),
+          leading: const Icon(Icons.apps),
+          trailing: const Icon(Icons.chevron_right),
+          title: const Text("Kaartenspellen"),
+          subtitle: const Text(
+            "Bekijk, verwijder, deel en pas kaartenspellen aan",
+          ),
           onTap: () {
             Navigator.push(
               context,
