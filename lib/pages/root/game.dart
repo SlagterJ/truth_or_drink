@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:truth_or_drink/pages/new_game.dart";
 
 import "../cards.dart";
 
@@ -14,6 +15,12 @@ class GamePage extends StatelessWidget {
           trailing: const Icon(Icons.chevron_right),
           title: const Text("Nieuw spel"),
           subtitle: const Text("Start een nieuw spel"),
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const NewGamePage()),
+            );
+          },
         ),
         const Divider(),
         ListTile(

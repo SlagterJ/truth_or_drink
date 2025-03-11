@@ -7,7 +7,7 @@ class CardsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("Kaartenspellen"), centerTitle: true),
-      body: const Center(child: Text("Card page!")),
+      body: const Center(child: Text("Kaartenspellen!")),
     );
   }
 }
