@@ -41,6 +41,12 @@ class _AppRootState extends State<AppRoot> {
     const UserPage(),
   ];
 
+  int getCurrentPageIndex() {
+    return currentPageIndex < pages.length && currentPageIndex >= 0
+        ? currentPageIndex
+        : 0;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,7 +58,7 @@ class _AppRootState extends State<AppRoot> {
             currentPageIndex = index;
           });
         },
-        selectedIndex: currentPageIndex,
+        selectedIndex: getCurrentPageIndex(),
         destinations: [
           NavigationDestination(
             icon: const Icon(Icons.sports_bar),
@@ -69,7 +75,7 @@ class _AppRootState extends State<AppRoot> {
         ],
       ),
 
-      body: pages[currentPageIndex],
+      body: pages[getCurrentPageIndex()],
     );
   }
 }
