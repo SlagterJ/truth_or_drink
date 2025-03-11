@@ -1,6 +1,8 @@
 import "package:drift/drift.dart";
 import "package:drift_flutter/drift_flutter.dart";
 import "package:path_provider/path_provider.dart";
+import "package:truth_or_drink/models/cards.dart";
+import "package:truth_or_drink/models/decks.dart";
 
 part "database.g.dart";
 
@@ -9,16 +11,7 @@ mixin BaseTableMixin on Table {
   late final id = integer().autoIncrement()();
 }
 
-class Decks extends Table with BaseTableMixin {
-  late final title = text().withLength(min: 4, max: 16)();
-}
-
-class Cards extends Table with BaseTableMixin {
-  late final question = text().withLength(min: 6, max: 64)();
-  late final deck = integer().references(Decks, #id)();
-}
-
-@DriftDatabase(tables: [Cards])
+@DriftDatabase(tables: [Decks, Cards])
 class AppDatabase extends _$AppDatabase {
   // After generating code, this class needs to define a `schemaVersion` getter
   // and a constructor telling drift where the database should be stored.
