@@ -13,7 +13,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int currentPageIndex = 0;
+  int _currentPageIndex = 0;
   final List<Widget> pages = [
     const GamePage(),
     const ParticipatePage(),
@@ -21,8 +21,8 @@ class _HomePageState extends State<HomePage> {
   ];
 
   int getCurrentPageIndex() {
-    return currentPageIndex < pages.length && currentPageIndex >= 0
-        ? currentPageIndex
+    return _currentPageIndex < pages.length && _currentPageIndex >= 0
+        ? _currentPageIndex
         : 0;
   }
 
@@ -34,7 +34,7 @@ class _HomePageState extends State<HomePage> {
       bottomNavigationBar: NavigationBar(
         onDestinationSelected: (int index) {
           setState(() {
-            currentPageIndex = index;
+            _currentPageIndex = index;
           });
         },
         selectedIndex: getCurrentPageIndex(),
