@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
 import "package:truth_or_drink/pages/new_game.dart";
 
-import "../cards.dart";
+import "../decks.dart";
 
 class GamePage extends StatelessWidget {
   const GamePage({super.key});
@@ -33,7 +33,7 @@ class GamePage extends StatelessWidget {
           onTap: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (_) => const CardsPage()),
+              MaterialPageRoute(builder: (_) => const DecksPage()),
             );
           },
         ),
