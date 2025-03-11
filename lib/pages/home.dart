@@ -14,14 +14,14 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _currentPageIndex = 0;
-  final List<Widget> pages = [
+  final List<Widget> _pages = [
     const GamePage(),
     const ParticipatePage(),
     const UserPage(),
   ];
 
   int getCurrentPageIndex() {
-    return _currentPageIndex < pages.length && _currentPageIndex >= 0
+    return _currentPageIndex < _pages.length && _currentPageIndex >= 0
         ? _currentPageIndex
         : 0;
   }
@@ -57,7 +57,7 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
 
-      body: pages[getCurrentPageIndex()],
+      body: _pages[getCurrentPageIndex()],
     );
   }
 }
