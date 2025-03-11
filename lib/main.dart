@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
-import "package:truth_or_drink/pages/home.dart";
-import "package:truth_or_drink/pages/participate.dart";
-import "package:truth_or_drink/pages/user.dart";
+import "package:truth_or_drink/pages/root/game.dart";
+import "package:truth_or_drink/pages/root/participate.dart";
+import "package:truth_or_drink/pages/root/user.dart";
 
 void main() {
   runApp(const MyApp());
@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: "Truth or Drink",
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.pink.shade900),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.pink),
       ),
       home: const AppRoot(title: "Truth or Drink"),
     );
@@ -35,7 +35,7 @@ class AppRoot extends StatefulWidget {
 class _AppRootState extends State<AppRoot> {
   int currentPageIndex = 0;
   final List<Widget> pages = [
-    const HomePage(),
+    const GamePage(),
     const ParticipatePage(),
     const UserPage(),
   ];
@@ -43,7 +43,7 @@ class _AppRootState extends State<AppRoot> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(widget.title)),
+      appBar: AppBar(title: Text(widget.title), centerTitle: true),
 
       bottomNavigationBar: NavigationBar(
         onDestinationSelected: (int index) {

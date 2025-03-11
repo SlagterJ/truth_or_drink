@@ -5,6 +5,6 @@ class ParticipatePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Center(child: Text("Participate page!")));
+    return Center(child: Text("Participate page!"));
   }
 }
