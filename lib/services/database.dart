@@ -4,9 +4,18 @@ import "package:path_provider/path_provider.dart";
 
 part "database.g.dart";
 
-class Cards extends Table {
-  IntColumn get id => integer().autoIncrement()();
-  TextColumn get question => text().withLength(min: 6, max: 64)();
+mixin BaseTableMixin on Table {
+  // Primary key column
+  late final id = integer().autoIncrement()();
+}
+
+class Decks extends Table with BaseTableMixin {
+  late final title = text().withLength(min: 4, max: 16)();
+}
+
+class Cards extends Table with BaseTableMixin {
+  late final question = text().withLength(min: 6, max: 64)();
+  late final deck = integer().references(Decks, #id)();
 }
 
 @DriftDatabase(tables: [Cards])
