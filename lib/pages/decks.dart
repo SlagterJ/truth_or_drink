@@ -14,13 +14,13 @@ class DecksPage extends StatelessWidget {
             () => showDialog(
               context: context,
               builder:
-                  (context) => Dialog.fullscreen(child: createDeckDialog()),
+                  (context) => Dialog.fullscreen(child: _buildDeckDialog()),
             ),
       ),
     );
   }
 
-  Scaffold createDeckDialog() {
+  Scaffold _buildDeckDialog() {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Voeg kaartenspel toe"),
