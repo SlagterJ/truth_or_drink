@@ -13,9 +13,7 @@ class DecksPage extends StatelessWidget {
         onPressed:
             () => showModalBottomSheet(
               context: context,
-              builder:
-                  (context) =>
-                      Dialog.fullscreen(child: _buildDeckBottomSheet(context)),
+              builder: (context) => _buildDeckBottomSheet(context),
             ),
       ),
     );
@@ -23,12 +21,12 @@ class DecksPage extends StatelessWidget {
 
   Widget _buildDeckBottomSheet(BuildContext context) {
     return SizedBox(
-      height: 275,
+      height: 310,
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 10.0),
+        padding: const EdgeInsets.symmetric(vertical: 30.0, horizontal: 20.0),
         child: Column(
           children: [
-            const Text("Maak een kaartspel aan"),
+            const Text("Nieuw kaartenspel"),
             const SizedBox(height: 20),
             const TextField(
               decoration: InputDecoration(
@@ -43,6 +41,13 @@ class DecksPage extends StatelessWidget {
                 Navigator.pop(context);
               },
               child: const Text("Kaartenspel aanmaken"),
+            ),
+            const Divider(),
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text("Importeer via QR-code"),
             ),
           ],
         ),
