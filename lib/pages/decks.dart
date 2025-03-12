@@ -11,22 +11,42 @@ class DecksPage extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
         onPressed:
-            () => showDialog(
+            () => showModalBottomSheet(
               context: context,
               builder:
-                  (context) => Dialog.fullscreen(child: _buildDeckDialog()),
+                  (context) =>
+                      Dialog.fullscreen(child: _buildDeckBottomSheet(context)),
             ),
       ),
     );
   }
 
-  Scaffold _buildDeckDialog() {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Voeg kaartenspel toe"),
-        centerTitle: true,
+  Widget _buildDeckBottomSheet(BuildContext context) {
+    return SizedBox(
+      height: 275,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 10.0),
+        child: Column(
+          children: [
+            const Text("Maak een kaartspel aan"),
+            const SizedBox(height: 20),
+            const TextField(
+              decoration: InputDecoration(
+                labelText: "Titel",
+                border: OutlineInputBorder(),
+              ),
+            ),
+            const SizedBox(height: 20),
+            FilledButton.tonal(
+              onPressed: () {
+                print("Send it button pressed");
+                Navigator.pop(context);
+              },
+              child: const Text("Kaartenspel aanmaken"),
+            ),
+          ],
+        ),
       ),
-      body: const Center(child: Text("Voeg kaartenspel toe!")),
     );
   }
 }
