@@ -32,4 +32,8 @@ class AppDatabase extends _$AppDatabase {
       // If you need web support, see https://drift.simonbinder.eu/platforms/web/
     );
   }
+
+  Stream<List<Deck>> watchAllDecks() => select(decks).watch();
+  DecksCompanion insertDeck(String title) =>
+      DecksCompanion.insert(title: title);
 }

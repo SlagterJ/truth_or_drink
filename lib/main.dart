@@ -13,25 +13,16 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: "Truth or Drink",
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.pink),
-      ),
-      home: const AppHome(),
-    );
-  }
-}
-
-class AppHome extends StatelessWidget {
-  const AppHome({super.key});
-
-  @override
-  Widget build(BuildContext context) {
     return Provider(
       create: (_) => AppDatabase(),
-      child: HomePage(title: "Truth or Drink"),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: "Truth or Drink",
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.pink),
+        ),
+        home: HomePage(title: "Truth or Drink"),
+      ),
     );
   }
 }
