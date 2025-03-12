@@ -41,8 +41,8 @@ class _HomePageState extends State<HomePage> {
             label: "Spel",
           ),
           NavigationDestination(
-            icon: const Icon(Icons.qr_code_scanner_outlined),
-            selectedIcon: const Icon(Icons.qr_code_scanner),
+            icon: const Icon(Icons.qr_code_outlined),
+            selectedIcon: const Icon(Icons.qr_code),
             label: "Deelnemen",
           ),
           NavigationDestination(
