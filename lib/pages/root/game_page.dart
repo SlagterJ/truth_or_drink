@@ -24,7 +24,7 @@ class GamePage extends StatelessWidget {
         ),
         const Divider(),
         ListTile(
-          leading: const Icon(Icons.apps),
+          leading: const Icon(Icons.style),
           trailing: const Icon(Icons.chevron_right),
           title: const Text("Kaartenspellen"),
           subtitle: const Text(

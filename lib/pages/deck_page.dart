@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:provider/provider.dart";
 import "package:truth_or_drink/services/database.dart" as db;
+import "package:truth_or_drink/widgets/card_item.dart";
 
 class DeckPage extends StatelessWidget {
   const DeckPage({super.key, required this.id, required this.title});
@@ -11,7 +12,7 @@ class DeckPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(title), centerTitle: true),
+      appBar: AppBar(title: Text("Kaartenspellen: $title"), centerTitle: true),
       body: _buildCardList(context),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
@@ -80,7 +81,7 @@ class DeckPage extends StatelessWidget {
           itemCount: cards.length,
           itemBuilder: (_, index) {
             final card = cards[index];
-            return Text(card.question);
+            return CardItem(id: card.id, question: card.question);
           },
         );
       },
