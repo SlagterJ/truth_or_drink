@@ -2,7 +2,7 @@ import "package:flutter/material.dart";
 import "package:flutter_slidable/flutter_slidable.dart";
 import "package:provider/provider.dart";
 import "package:qr_flutter/qr_flutter.dart";
-import "package:truth_or_drink/pages/deck.dart";
+import "package:truth_or_drink/pages/deck_page.dart";
 import "package:truth_or_drink/services/database.dart";
 
 class DeckItem extends StatelessWidget {

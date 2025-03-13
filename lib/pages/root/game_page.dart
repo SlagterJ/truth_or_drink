@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
-import "package:truth_or_drink/pages/new_game.dart";
+import "package:truth_or_drink/pages/new_game_page.dart";
 
-import "../decks.dart";
+import "../decks_page.dart";
 
 class GamePage extends StatelessWidget {
   const GamePage({super.key});

@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
-import "package:truth_or_drink/pages/root/game.dart";
-import "package:truth_or_drink/pages/root/participate.dart";
-import "package:truth_or_drink/pages/root/user.dart";
+import "package:truth_or_drink/pages/root/game_page.dart";
+import "package:truth_or_drink/pages/root/participate_page.dart";
+import "package:truth_or_drink/pages/root/user_page.dart";
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key, required this.title});

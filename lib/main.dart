@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
 import "package:provider/provider.dart";
-import "package:truth_or_drink/pages/home.dart";
+import "package:truth_or_drink/pages/home_page.dart";
 import "package:truth_or_drink/services/database.dart";
 
 void main() {
