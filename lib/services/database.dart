@@ -38,4 +38,12 @@ class AppDatabase extends _$AppDatabase {
       await into(decks).insert(DecksCompanion.insert(title: title));
   Future deleteDeck(int id) async =>
       await (delete(decks)..where((deck) => deck.id.equals(id))).go();
+
+  Stream<List<Card>> watchCardsFromDeck(int id) =>
+      (select(cards)..where((card) => card.deck.equals(id))).watch();
+  Future insertCard(String question, int deckId) async => await into(
+    cards,
+  ).insert(CardsCompanion.insert(question: question, deck: deckId));
+  Future deleteCard(int id) async =>
+      await (delete(cards)..where((card) => card.id.equals(id))).go();
 }

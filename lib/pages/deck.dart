@@ -11,6 +11,12 @@ class DeckPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text(title), centerTitle: true),
       body: Center(child: Text(title)),
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.add),
+        onPressed: () {
+          print("FAB pressed!");
+        },
+      ),
     );
   }
 }
