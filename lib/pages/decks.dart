@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:provider/provider.dart";
 import "package:truth_or_drink/services/database.dart";
+import "package:truth_or_drink/widgets/deck_item.dart";
 
 class DecksPage extends StatelessWidget {
   const DecksPage({super.key});
@@ -82,10 +83,7 @@ class DecksPage extends StatelessWidget {
           itemCount: decks.length,
           itemBuilder: (_, index) {
             final deck = decks[index];
-            return ListTile(
-              title: Text(deck.title),
-              trailing: const Icon(Icons.share),
-            );
+            return DeckItem(id: deck.id, title: deck.title);
           },
         );
       },
