@@ -14,6 +14,7 @@ class DecksPage extends StatelessWidget {
         child: const Icon(Icons.add),
         onPressed:
             () => showModalBottomSheet(
+              isScrollControlled: true,
               context: context,
               builder: (context) => _buildDeckBottomSheet(context),
             ),
@@ -33,9 +34,15 @@ class DecksPage extends StatelessWidget {
     }
 
     return SizedBox(
-      height: 310,
+      height: 310 + MediaQuery.of(context).viewInsets.bottom,
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 30.0, horizontal: 20.0),
+        padding: EdgeInsets.only(
+          top: 30.0,
+          left: 20.0,
+          right: 20.0,
+          // make the sheet dodge the keyboard
+          bottom: MediaQuery.of(context).viewInsets.bottom,
+        ),
         child: Column(
           children: [
             const Text("Nieuw kaartenspel"),
