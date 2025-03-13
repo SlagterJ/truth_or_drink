@@ -16,13 +16,16 @@ class DeckPage extends StatelessWidget {
       body: _buildCardList(context),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
-        onPressed:
-            () => showModalBottomSheet(
-              isScrollControlled: true,
-              context: context,
-              builder: (context) => _buildCardBottomSheet(context),
-            ),
+        onPressed: () => _buildShowBottomSheet(context),
       ),
+    );
+  }
+
+  Future<dynamic> _buildShowBottomSheet(BuildContext context) {
+    return showModalBottomSheet(
+      isScrollControlled: true,
+      context: context,
+      builder: (context) => _buildCardBottomSheet(context),
     );
   }
 
@@ -76,6 +79,23 @@ class DeckPage extends StatelessWidget {
       stream: database.watchCardsFromDeck(id),
       builder: (_, AsyncSnapshot<List<db.Card>> snapshot) {
         final cards = snapshot.data ?? [];
+
+        if (cards.isEmpty) {
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Text("Er zijn nog geen kaarten..."),
+                const SizedBox(height: 10),
+                TextButton(
+                  child: const Text("Maak er een"),
+                  onPressed: () => _buildShowBottomSheet(context),
+                ),
+              ],
+            ),
+          );
+        }
 
         return ListView.builder(
           itemCount: cards.length,
