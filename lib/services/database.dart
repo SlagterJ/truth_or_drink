@@ -34,6 +34,6 @@ class AppDatabase extends _$AppDatabase {
   }
 
   Stream<List<Deck>> watchAllDecks() => select(decks).watch();
-  DecksCompanion insertDeck(String title) =>
-      DecksCompanion.insert(title: title);
+  Future insertDeck(String title) async =>
+      await into(decks).insert(DecksCompanion.insert(title: title));
 }

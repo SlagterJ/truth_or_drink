@@ -82,7 +82,10 @@ class DecksPage extends StatelessWidget {
           itemCount: decks.length,
           itemBuilder: (_, index) {
             final deck = decks[index];
-            return ListTile(title: Text(deck.title));
+            return ListTile(
+              title: Text(deck.title),
+              trailing: const Icon(Icons.share),
+            );
           },
         );
       },
