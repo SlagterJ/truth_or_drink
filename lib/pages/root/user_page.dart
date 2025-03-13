@@ -5,6 +5,26 @@ class UserPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(child: Text("User page!"));
+    return Flexible(
+      child: Column(
+        children: [
+          Text(
+            "Jordy Slagter",
+            style: TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
+          ),
+          Expanded(flex: 1, child: Container()),
+          ListTile(
+            title: const Text("Wijzig naam"),
+            leading: const Icon(Icons.edit),
+            trailing: const Icon(Icons.chevron_right),
+          ),
+          ListTile(
+            title: const Text("Instellingen"),
+            leading: const Icon(Icons.settings),
+            trailing: const Icon(Icons.chevron_right),
+          ),
+        ],
+      ),
+    );
   }
 }

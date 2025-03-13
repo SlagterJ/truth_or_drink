@@ -8,10 +8,15 @@ class ParticipatePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Padding(
-        padding: EdgeInsets.all(50.0),
-        child: QrImageView(
-          data: "Truth or Drink Test!",
-          version: QrVersions.auto,
+        padding: EdgeInsets.all(40.0),
+        child: Card(
+          child: Padding(
+            padding: EdgeInsets.all(20.0),
+            child: QrImageView(
+              data: "Truth or Drink Test!",
+              version: QrVersions.auto,
+            ),
+          ),
         ),
       ),
     );
