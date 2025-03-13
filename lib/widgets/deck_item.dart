@@ -101,7 +101,7 @@ class DeckItem extends StatelessWidget {
       ),
       child: ListTile(
         title: Text(title),
-        subtitle: Text("Bevat 0 kaarten"),
+        subtitle: _buildCardCount(context, id),
         trailing: Icon(Icons.chevron_right),
         onTap: () {
           Navigator.push(
@@ -110,6 +110,21 @@ class DeckItem extends StatelessWidget {
           );
         },
       ),
+    );
+  }
+
+  StreamBuilder<int> _buildCardCount(BuildContext context, int id) {
+    final database = Provider.of<AppDatabase>(context);
+
+    return StreamBuilder(
+      stream: database.watchCardCount(id),
+      builder: (_, AsyncSnapshot<int> snapshot) {
+        final count = snapshot.data ?? 0;
+        // make the 'kaarten' text grammatically correct
+        final pluralText = count == 1 ? "kaart" : "kaarten";
+
+        return Text("Bevat $count $pluralText");
+      },
     );
   }
 }

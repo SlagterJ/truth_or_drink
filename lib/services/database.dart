@@ -38,6 +38,15 @@ class AppDatabase extends _$AppDatabase {
       await into(decks).insert(DecksCompanion.insert(title: title));
   Future deleteDeck(int id) async =>
       await (delete(decks)..where((deck) => deck.id.equals(id))).go();
+  Stream<int> watchCardCount(int id) {
+    final countQuery = selectOnly(cards)..addColumns([cards.id.count()]);
+    countQuery.where(cards.deck.equals(id));
+
+    return countQuery
+        .map((row) => row.read<int>(cards.id.count()) ?? 0)
+        .watch()
+        .map((rows) => rows.isEmpty ? 0 : rows.first);
+  }
 
   Stream<List<Card>> watchCardsFromDeck(int id) =>
       (select(cards)..where((card) => card.deck.equals(id))).watch();
