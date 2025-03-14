@@ -1,4 +1,6 @@
 import "package:flutter/material.dart";
+import "package:flutter/services.dart";
+import "package:mobile_scanner/mobile_scanner.dart";
 import "package:provider/provider.dart";
 import "package:truth_or_drink/services/database.dart";
 import "package:truth_or_drink/widgets/deck_item.dart";
@@ -37,6 +39,25 @@ class DecksPage extends StatelessWidget {
       }
     }
 
+    Future<dynamic> scanQRCode() {
+      return showModalBottomSheet(
+        context: context,
+        builder:
+            (_) => Padding(
+              padding: EdgeInsets.all(20),
+              child: MobileScanner(
+                controller: MobileScannerController(
+                  detectionSpeed: DetectionSpeed.normal,
+                ),
+                onDetect: (capture) {
+                  HapticFeedback.vibrate();
+                  Navigator.pop(context);
+                },
+              ),
+            ),
+      );
+    }
+
     return SizedBox(
       height: 310 + MediaQuery.of(context).viewInsets.bottom,
       child: Padding(
@@ -65,7 +86,7 @@ class DecksPage extends StatelessWidget {
             ),
             const Divider(),
             TextButton(
-              onPressed: submitTitle,
+              onPressed: scanQRCode,
               child: const Text("Importeer via QR-code"),
             ),
           ],
