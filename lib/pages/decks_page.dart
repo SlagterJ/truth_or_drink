@@ -32,10 +32,25 @@ class DecksPage extends StatelessWidget {
     final database = Provider.of<AppDatabase>(context);
     final titleController = TextEditingController();
 
-    void submitTitle() {
+    void submitDeck() {
       if (titleController.text != "") {
-        database.insertDeck(titleController.text);
-        Navigator.pop(context);
+        try {
+          database.insertDeck(titleController.text);
+          Navigator.pop(context);
+        } catch (_) {
+          showDialog(
+            context: context,
+            builder:
+                (_) => Dialog(
+                  child: Padding(
+                    padding: EdgeInsets.all(20.0),
+                    child: const Text(
+                      "Er is iets misgegaan bij het aanmaken van dit kaartenspel.",
+                    ),
+                  ),
+                ),
+          );
+        }
       }
     }
 
@@ -78,10 +93,13 @@ class DecksPage extends StatelessWidget {
                 labelText: "Titel",
                 border: OutlineInputBorder(),
               ),
+              onSubmitted: (_) {
+                submitDeck();
+              },
             ),
             const SizedBox(height: 20),
             FilledButton.tonal(
-              onPressed: submitTitle,
+              onPressed: submitDeck,
               child: const Text("Kaartenspel aanmaken"),
             ),
             const Divider(),

@@ -27,10 +27,6 @@ class $DecksTable extends Decks with TableInfo<$DecksTable, Deck> {
     'title',
     aliasedName,
     false,
-    additionalChecks: GeneratedColumn.checkTextLength(
-      minTextLength: 4,
-      maxTextLength: 16,
-    ),
     type: DriftSqlType.string,
     requiredDuringInsert: true,
   );
@@ -235,7 +231,7 @@ class $CardsTable extends Cards with TableInfo<$CardsTable, Card> {
     type: DriftSqlType.int,
     requiredDuringInsert: true,
     defaultConstraints: GeneratedColumn.constraintIsAlways(
-      'REFERENCES decks (id)',
+      'REFERENCES decks (id) ON DELETE CASCADE',
     ),
   );
   @override
@@ -456,6 +452,16 @@ abstract class _$AppDatabase extends GeneratedDatabase {
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
   List<DatabaseSchemaEntity> get allSchemaEntities => [decks, cards];
+  @override
+  StreamQueryUpdateRules get streamUpdateRules => const StreamQueryUpdateRules([
+    WritePropagation(
+      on: TableUpdateQuery.onTableName(
+        'decks',
+        limitUpdateKind: UpdateKind.delete,
+      ),
+      result: [TableUpdate('cards', kind: UpdateKind.delete)],
+    ),
+  ]);
 }
 
 typedef $$DecksTableCreateCompanionBuilder =

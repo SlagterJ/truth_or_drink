@@ -35,8 +35,23 @@ class DeckPage extends StatelessWidget {
 
     void submitCard() {
       if (questionController.text != "") {
-        database.insertCard(questionController.text, id);
-        Navigator.pop(context);
+        try {
+          database.insertCard(questionController.text, id);
+          Navigator.pop(context);
+        } catch (_) {
+          showDialog(
+            context: context,
+            builder:
+                (_) => Dialog(
+                  child: Padding(
+                    padding: EdgeInsets.all(20.0),
+                    child: const Text(
+                      "Er is iets misgegaan bij het aanmaken van dit kaartenspel.",
+                    ),
+                  ),
+                ),
+          );
+        }
       }
     }
 
@@ -60,6 +75,9 @@ class DeckPage extends StatelessWidget {
                 labelText: "Vraag",
                 border: OutlineInputBorder(),
               ),
+              onSubmitted: (_) {
+                submitCard();
+              },
             ),
             const SizedBox(height: 20),
             FilledButton.tonal(
