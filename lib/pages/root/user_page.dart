@@ -8,11 +8,12 @@ class UserPage extends StatelessWidget {
     return Flexible(
       child: Column(
         children: [
+          Expanded(flex: 1, child: Container()),
           Text(
             "Jordy Slagter",
             style: TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
           ),
-          Expanded(flex: 1, child: Container()),
+          Expanded(flex: 2, child: Container()),
           ListTile(
             title: const Text("Wijzig naam"),
             leading: const Icon(Icons.edit),
