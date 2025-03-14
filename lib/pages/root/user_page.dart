@@ -19,6 +19,7 @@ class UserPage extends StatelessWidget {
             leading: const Icon(Icons.edit),
             trailing: const Icon(Icons.chevron_right),
           ),
+          const Divider(),
           ListTile(
             title: const Text("Instellingen"),
             leading: const Icon(Icons.settings),
