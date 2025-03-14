@@ -25,7 +25,6 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(widget.title), centerTitle: true),
       bottomNavigationBar: NavigationBar(
         onDestinationSelected: (index) {
           setState(() {
