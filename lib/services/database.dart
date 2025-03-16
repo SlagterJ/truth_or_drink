@@ -55,6 +55,8 @@ class AppDatabase extends _$AppDatabase {
 
   Stream<List<Card>> watchCardsFromDeck(int id) =>
       (select(cards)..where((card) => card.deck.equals(id))).watch();
+  Future<List<Card>> selectCardsFromDeck(int id) async =>
+      await (select(cards)..where((card) => card.deck.equals(id))).get();
   Future insertCard(String question, int deckId) async => await into(
     cards,
   ).insert(CardsCompanion.insert(question: question, deck: deckId));

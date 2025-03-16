@@ -1,3 +1,5 @@
+import "dart:convert";
+
 import "package:flutter/material.dart";
 import "package:flutter_slidable/flutter_slidable.dart";
 import "package:provider/provider.dart";
@@ -66,14 +68,32 @@ class DeckItem extends StatelessWidget {
     );
   }
 
-  Future<dynamic> _buildShowShareDialog(BuildContext context) {
-    return showDialog(
+  void _buildShowShareDialog(BuildContext context) async {
+    if (!context.mounted) return;
+
+    final database = Provider.of<AppDatabase>(context, listen: false);
+
+    final cards = await database.selectCardsFromDeck(id);
+    final questions = cards.map((card) => card.question).toList();
+
+    final Map<String, dynamic> data = {
+      "type": "deck_share",
+      "title": title,
+      "cards": questions,
+    };
+
+    final json = jsonEncode(data);
+
+    // check again to prevent compiler errors
+    if (!context.mounted) return;
+
+    showDialog(
       context: context,
       builder:
           (_) => Dialog(
             child: Padding(
               padding: EdgeInsets.all(25.0),
-              child: QrImageView(data: title, version: QrVersions.auto),
+              child: QrImageView(data: json, version: QrVersions.auto),
             ),
           ),
     );
