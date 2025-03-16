@@ -48,6 +48,11 @@ class AppDatabase extends _$AppDatabase {
         .map((rows) => rows.isEmpty ? 0 : rows.first);
   }
 
+  Future renameDeck(int id, String newTitle) async => await (update(decks)
+    ..where(
+      (deck) => deck.id.equals(id),
+    )).write(DecksCompanion(title: Value(newTitle)));
+
   Stream<List<Card>> watchCardsFromDeck(int id) =>
       (select(cards)..where((card) => card.deck.equals(id))).watch();
   Future insertCard(String question, int deckId) async => await into(
@@ -55,4 +60,8 @@ class AppDatabase extends _$AppDatabase {
   ).insert(CardsCompanion.insert(question: question, deck: deckId));
   Future deleteCard(int id) async =>
       await (delete(cards)..where((card) => card.id.equals(id))).go();
+  Future renameCard(int id, String newQuestion) async => await (update(cards)
+    ..where(
+      (card) => card.id.equals(id),
+    )).write(CardsCompanion(question: Value(newQuestion)));
 }

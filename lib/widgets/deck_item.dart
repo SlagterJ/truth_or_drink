@@ -23,19 +23,7 @@ class DeckItem extends StatelessWidget {
             icon: Icons.share,
             label: "Delen",
             onPressed: (_) {
-              showDialog(
-                context: context,
-                builder:
-                    (_) => Dialog(
-                      child: Padding(
-                        padding: EdgeInsets.all(25.0),
-                        child: QrImageView(
-                          data: title,
-                          version: QrVersions.auto,
-                        ),
-                      ),
-                    ),
-              );
+              _buildShowShareDialog(context);
             },
           ),
         ],
@@ -44,57 +32,21 @@ class DeckItem extends StatelessWidget {
         motion: BehindMotion(),
         children: [
           SlidableAction(
+            backgroundColor: Colors.black12,
+            foregroundColor: Colors.white,
+            icon: Icons.edit,
+            label: "Hernoemen",
+            onPressed: (_) {
+              _buildShowRenameDialog(context);
+            },
+          ),
+          SlidableAction(
             backgroundColor: Colors.red,
             foregroundColor: Colors.white,
             icon: Icons.delete,
             label: "Verwijder",
             onPressed: (_) {
-              showDialog(
-                context: context,
-                builder:
-                    (_) => Dialog(
-                      child: SizedBox(
-                        height: 150,
-                        child: Padding(
-                          padding: const EdgeInsets.all(20.0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text(
-                                "Weet je zeker dat je kaartenspel '$title' wilt verwijderen? Dit zal ook alle kaarten in dit spel verwijderen.",
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  TextButton(
-                                    child: const Text("Annuleren"),
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                  ),
-                                  TextButton(
-                                    child: const Text("Verwijderen"),
-                                    onPressed: () {
-                                      final database = Provider.of<AppDatabase>(
-                                        context,
-                                        listen: false,
-                                      );
-
-                                      database.deleteDeck(id);
-
-                                      Navigator.pop(context);
-                                    },
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-              );
+              _buildShowDeleteDialog(context);
             },
           ),
         ],
@@ -111,6 +63,122 @@ class DeckItem extends StatelessWidget {
           );
         },
       ),
+    );
+  }
+
+  Future<dynamic> _buildShowShareDialog(BuildContext context) {
+    return showDialog(
+      context: context,
+      builder:
+          (_) => Dialog(
+            child: Padding(
+              padding: EdgeInsets.all(25.0),
+              child: QrImageView(data: title, version: QrVersions.auto),
+            ),
+          ),
+    );
+  }
+
+  Future<dynamic> _buildShowRenameDialog(BuildContext context) {
+    var titleController = TextEditingController(text: title);
+    return showDialog(
+      context: context,
+      builder:
+          (_) => Dialog(
+            child: SizedBox(
+              height: 150,
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    TextField(
+                      controller: titleController,
+                      decoration: const InputDecoration(
+                        labelText: "Nieuwe titel",
+                        border: OutlineInputBorder(),
+                      ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        TextButton(
+                          child: const Text("Annuleren"),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                        ),
+                        TextButton(
+                          child: const Text("Hernoemen"),
+                          onPressed: () {
+                            if (titleController.text == "") return;
+
+                            final database = Provider.of<AppDatabase>(
+                              context,
+                              listen: false,
+                            );
+
+                            database.renameDeck(id, titleController.text);
+
+                            Navigator.pop(context);
+                          },
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+    );
+  }
+
+  Future<dynamic> _buildShowDeleteDialog(BuildContext context) {
+    return showDialog(
+      context: context,
+      builder:
+          (_) => Dialog(
+            child: SizedBox(
+              height: 150,
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Weet je zeker dat je kaartenspel '$title' wilt verwijderen? Dit zal ook alle kaarten in dit spel verwijderen.",
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        TextButton(
+                          child: const Text("Annuleren"),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                        ),
+                        TextButton(
+                          child: const Text("Verwijderen"),
+                          onPressed: () {
+                            final database = Provider.of<AppDatabase>(
+                              context,
+                              listen: false,
+                            );
+
+                            database.deleteDeck(id);
+
+                            Navigator.pop(context);
+                          },
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
     );
   }
 
