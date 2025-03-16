@@ -53,6 +53,11 @@ class AppDatabase extends _$AppDatabase {
       (deck) => deck.id.equals(id),
     )).write(DecksCompanion(title: Value(newTitle)));
 
+  Future<String?> getDeckTitle(int id) async =>
+      await (select(decks)..where(
+        (deck) => deck.id.equals(id),
+      )).map((row) => row.title).getSingleOrNull();
+
   Stream<List<Card>> watchCardsFromDeck(int id) =>
       (select(cards)..where((card) => card.deck.equals(id))).watch();
   Future<List<Card>> selectCardsFromDeck(int id) async =>

@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:provider/provider.dart";
+import "package:truth_or_drink/pages/decks_page.dart";
 
 import "../services/database.dart";
 import "../widgets/new_game_deck_item.dart";
@@ -33,10 +34,16 @@ class NewGamePage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const Text("Er zijn nog geen kaartenspellen."),
+                const Text("Er zijn nog geen kaartenspellen..."),
                 const SizedBox(height: 10),
-                const Text(
-                  "Ga naar het kaartenspellenmenu om er een aan te maken.",
+                TextButton(
+                  child: const Text("Naar het kaartenspellenmenu"),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => DecksPage()),
+                    );
+                  },
                 ),
               ],
             ),

@@ -215,10 +215,6 @@ class $CardsTable extends Cards with TableInfo<$CardsTable, Card> {
     'question',
     aliasedName,
     false,
-    additionalChecks: GeneratedColumn.checkTextLength(
-      minTextLength: 6,
-      maxTextLength: 64,
-    ),
     type: DriftSqlType.string,
     requiredDuringInsert: true,
   );

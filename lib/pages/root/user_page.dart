@@ -71,7 +71,13 @@ class _UserPageState extends State<UserPage> {
                     (_) => SizedBox(
                       height: 220 + MediaQuery.of(context).viewInsets.bottom,
                       child: Padding(
-                        padding: EdgeInsets.all(20.0),
+                        padding: EdgeInsets.only(
+                          top: 30.0,
+                          left: 20.0,
+                          right: 20.0,
+                          // make the sheet dodge the keyboard
+                          bottom: MediaQuery.of(context).viewInsets.bottom,
+                        ),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -95,6 +101,7 @@ class _UserPageState extends State<UserPage> {
                                 submitName();
                               },
                             ),
+                            const SizedBox(height: 20),
                           ],
                         ),
                       ),
