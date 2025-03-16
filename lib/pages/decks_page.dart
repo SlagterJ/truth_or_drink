@@ -119,7 +119,11 @@ class DecksPage extends StatelessWidget {
     return StreamBuilder(
       stream: database.watchAllDecks(),
       builder: (_, AsyncSnapshot<List<Deck>> snapshot) {
-        final decks = snapshot.data ?? [];
+        final List<Deck>? decks = snapshot.data;
+
+        if (decks == null) {
+          return CircularProgressIndicator();
+        }
 
         if (decks.isEmpty) {
           return Center(
