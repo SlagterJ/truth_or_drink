@@ -75,7 +75,15 @@ class CardItem extends StatelessWidget {
                         TextButton(
                           child: const Text("Hernoemen"),
                           onPressed: () {
-                            if (questionController.text == "") return;
+                            if (questionController.text == "") {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text("De vraag mag niet leeg zijn!"),
+                                ),
+                              );
+
+                              return;
+                            }
 
                             final database = Provider.of<AppDatabase>(
                               context,

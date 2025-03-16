@@ -70,6 +70,10 @@ class _HomePageState extends State<HomePage> {
 
     void submitName() {
       if (nameController.text == "") {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Je naam mag niet leeg zijn!")),
+        );
+
         return;
       }
 

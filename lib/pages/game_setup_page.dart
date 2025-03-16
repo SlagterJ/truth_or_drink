@@ -2,6 +2,8 @@ import "package:flutter/material.dart";
 import "package:flutter/services.dart";
 import "package:mobile_scanner/mobile_scanner.dart";
 import "package:provider/provider.dart";
+import "package:shared_preferences/shared_preferences.dart";
+import "package:truth_or_drink/pages/game_active_page.dart";
 import "package:truth_or_drink/services/database.dart" as db;
 
 class GameSetupPage extends StatefulWidget {
@@ -24,14 +26,21 @@ class _GameSetupPageState extends State<GameSetupPage> {
 
     void initStateAsync() async {
       final database = Provider.of<db.AppDatabase>(context, listen: false);
+      final preferences = SharedPreferencesAsync();
 
       final deckTitle_ = await database.getDeckTitle(widget.deckId);
       // get the cards here so that there is no load time during gameplay
       final cards_ = await database.selectCardsFromDeck(widget.deckId);
 
+      String? username = await preferences.getString("username");
+
+      var players_ = players;
+      if (username != null) players_.add(username);
+
       setState(() {
         deckTitle = deckTitle_;
         cards = cards_;
+        players = players_;
       });
     }
 
@@ -41,7 +50,7 @@ class _GameSetupPageState extends State<GameSetupPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Spel"), centerTitle: true),
+      appBar: AppBar(title: const Text("Spel instellen"), centerTitle: true),
       body: Flexible(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -97,7 +106,29 @@ class _GameSetupPageState extends State<GameSetupPage> {
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {},
+        onPressed: () {
+          if (deckTitle == null) return;
+          if (cards == null) return;
+          if (players.isEmpty || players.length < 2) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text("Je moet meer spelers toevoegen!")),
+            );
+            return;
+          }
+
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) {
+                return GameActivePage(
+                  deckTitle: deckTitle!,
+                  cards: cards!,
+                  players: players,
+                );
+              },
+            ),
+          );
+        },
         label: const Text("Start spel"),
         icon: const Icon(Icons.play_arrow),
       ),
@@ -105,7 +136,13 @@ class _GameSetupPageState extends State<GameSetupPage> {
   }
 
   void _submitName(BuildContext context, String name) {
-    if (name == "") return;
+    if (name == "") {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Een spelers naam mag niet leeg zijn!")),
+      );
+
+      return;
+    }
 
     final newPlayers = players;
     newPlayers.add(name);

@@ -33,24 +33,30 @@ class DecksPage extends StatelessWidget {
     final titleController = TextEditingController();
 
     void submitDeck() {
-      if (titleController.text != "") {
-        try {
-          database.insertDeck(titleController.text);
-          Navigator.pop(context);
-        } catch (_) {
-          showDialog(
-            context: context,
-            builder:
-                (_) => Dialog(
-                  child: Padding(
-                    padding: EdgeInsets.all(20.0),
-                    child: const Text(
-                      "Er is iets misgegaan bij het aanmaken van dit kaartenspel.",
-                    ),
+      if (titleController.text == "") {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("De titel mag niet leeg zijn!")),
+        );
+
+        return;
+      }
+
+      try {
+        database.insertDeck(titleController.text);
+        Navigator.pop(context);
+      } catch (_) {
+        showDialog(
+          context: context,
+          builder:
+              (_) => Dialog(
+                child: Padding(
+                  padding: EdgeInsets.all(20.0),
+                  child: const Text(
+                    "Er is iets misgegaan bij het aanmaken van dit kaartenspel.",
                   ),
                 ),
-          );
-        }
+              ),
+        );
       }
     }
 

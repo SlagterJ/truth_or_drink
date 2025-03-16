@@ -132,7 +132,15 @@ class DeckItem extends StatelessWidget {
                         TextButton(
                           child: const Text("Hernoemen"),
                           onPressed: () {
-                            if (titleController.text == "") return;
+                            if (titleController.text == "") {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text("De titel mag niet leeg zijn!"),
+                                ),
+                              );
+
+                              return;
+                            }
 
                             final database = Provider.of<AppDatabase>(
                               context,
