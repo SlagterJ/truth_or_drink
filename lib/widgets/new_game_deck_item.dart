@@ -2,7 +2,7 @@ import "package:flutter/material.dart";
 import "package:provider/provider.dart";
 import "package:truth_or_drink/services/database.dart";
 
-import "../pages/game_active_page.dart";
+import "../pages/game_setup_page.dart";
 
 class NewGameDeckItem extends StatelessWidget {
   const NewGameDeckItem({super.key, required this.id, required this.title});
