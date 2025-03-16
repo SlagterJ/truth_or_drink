@@ -16,12 +16,16 @@ class UserPage extends StatelessWidget {
           Expanded(flex: 2, child: Container()),
           ListTile(
             title: const Text("Wijzig naam"),
+            subtitle: const Text(
+              "Wijzig de naam die zichtbaar is voor andere spelers",
+            ),
             leading: const Icon(Icons.edit),
             trailing: const Icon(Icons.chevron_right),
           ),
           const Divider(),
           ListTile(
             title: const Text("Instellingen"),
+            subtitle: const Text("Verander persoonlijke instellingen"),
             leading: const Icon(Icons.settings),
             trailing: const Icon(Icons.chevron_right),
           ),
