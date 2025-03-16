@@ -5,9 +5,7 @@ import "package:truth_or_drink/pages/root/participate_page.dart";
 import "package:truth_or_drink/pages/root/user_page.dart";
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key, required this.title});
-
-  final String title;
+  const HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();

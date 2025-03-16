@@ -122,7 +122,7 @@ class _GameSetupPageState extends State<GameSetupPage> {
               builder: (_) {
                 return GameActivePage(
                   deckTitle: deckTitle!,
-                  cards: cards!,
+                  questions: cards!.map((card) => card.question).toList(),
                   players: players,
                 );
               },

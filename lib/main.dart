@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.pink),
         ),
-        home: HomePage(title: "Truth or Drink"),
+        home: HomePage(),
       ),
     );
   }
