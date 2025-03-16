@@ -1,3 +1,5 @@
+import "dart:convert";
+
 import "package:flutter/material.dart";
 import "package:qr_flutter/qr_flutter.dart";
 import "package:shared_preferences/shared_preferences.dart";
@@ -32,7 +34,10 @@ class _ParticipatePageState extends State<ParticipatePage> {
                 padding: EdgeInsets.all(20.0),
                 child:
                     name != ""
-                        ? QrImageView(data: name, version: QrVersions.auto)
+                        ? QrImageView(
+                          data: _getData(),
+                          version: QrVersions.auto,
+                        )
                         : CircularProgressIndicator(),
               ),
             ),
@@ -62,5 +67,11 @@ class _ParticipatePageState extends State<ParticipatePage> {
     setState(() {
       name = storedName;
     });
+  }
+
+  String _getData() {
+    final Map<String, dynamic> data = {"name": name};
+
+    return jsonEncode(data);
   }
 }
