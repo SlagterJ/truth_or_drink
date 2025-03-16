@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
 
-class GameActivePage extends StatelessWidget {
-  const GameActivePage({super.key, required this.deckId});
+class GameSetupPage extends StatelessWidget {
+  const GameSetupPage({super.key, required this.deckId});
 
   final int deckId;
 
@@ -9,7 +9,15 @@ class GameActivePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("Spel"), centerTitle: true),
-      body: Text("Game with deckId $deckId"),
+      body: Flexible(
+        child: Column(
+          children: [
+            Expanded(flex: 1, child: Container()),
+            Text("Game with deckId $deckId"),
+            Expanded(flex: 1, child: Container()),
+          ],
+        ),
+      ),
     );
   }
 }

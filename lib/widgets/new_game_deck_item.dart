@@ -20,7 +20,7 @@ class NewGameDeckItem extends StatelessWidget {
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (_) => GameActivePage(deckId: id)),
+          MaterialPageRoute(builder: (_) => GameSetupPage(deckId: id)),
         );
       },
     );
