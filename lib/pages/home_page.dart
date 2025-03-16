@@ -84,7 +84,7 @@ class _HomePageState extends State<HomePage> {
       builder:
           (_) => Dialog(
             child: SizedBox(
-              height: 300,
+              height: 250,
               child: Padding(
                 padding: EdgeInsets.all(20.0),
                 child: Column(
@@ -92,6 +92,7 @@ class _HomePageState extends State<HomePage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     const Text("Geef jezelf een naam"),
+                    const SizedBox(height: 30.0),
                     TextField(
                       controller: nameController,
                       decoration: const InputDecoration(
@@ -102,6 +103,7 @@ class _HomePageState extends State<HomePage> {
                         submitName();
                       },
                     ),
+                    const SizedBox(height: 10.0),
                     TextButton(
                       child: const Text("Bevestig"),
                       onPressed: () {
