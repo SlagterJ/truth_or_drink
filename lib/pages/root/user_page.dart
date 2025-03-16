@@ -9,7 +9,7 @@ class UserPage extends StatefulWidget {
 }
 
 class _UserPageState extends State<UserPage> {
-  String name = "";
+  String? name;
 
   @override
   void initState() {
@@ -23,10 +23,21 @@ class _UserPageState extends State<UserPage> {
       child: Column(
         children: [
           Expanded(flex: 1, child: Container()),
-          name != ""
-              ? Text(
-                name,
-                style: TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
+          name != null
+              ? Padding(
+                padding: EdgeInsets.symmetric(horizontal: 40.0),
+                child: FittedBox(
+                  // make the box as big as it can be
+                  fit: BoxFit.contain,
+                  child: Text(
+                    name!,
+                    style: TextStyle(
+                      // make the text as big as it can be within the box
+                      fontSize: 400.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
               )
               : CircularProgressIndicator(),
           Expanded(flex: 2, child: Container()),
@@ -37,13 +48,59 @@ class _UserPageState extends State<UserPage> {
             ),
             leading: const Icon(Icons.edit),
             trailing: const Icon(Icons.chevron_right),
-          ),
-          const Divider(),
-          ListTile(
-            title: const Text("Instellingen"),
-            subtitle: const Text("Verander persoonlijke instellingen"),
-            leading: const Icon(Icons.settings),
-            trailing: const Icon(Icons.chevron_right),
+            onTap: () {
+              final nameController = TextEditingController(text: name);
+
+              void submitName() {
+                if (nameController.text == "") {
+                  return;
+                }
+
+                final preferences = SharedPreferencesAsync();
+
+                preferences.setString("username", nameController.text);
+
+                _getName();
+                Navigator.pop(context);
+              }
+
+              showModalBottomSheet(
+                isScrollControlled: true,
+                context: context,
+                builder:
+                    (_) => SizedBox(
+                      height: 220 + MediaQuery.of(context).viewInsets.bottom,
+                      child: Padding(
+                        padding: EdgeInsets.all(20.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            const Text("Verander je naam"),
+                            const SizedBox(height: 20),
+                            TextField(
+                              controller: nameController,
+                              decoration: const InputDecoration(
+                                label: Text("Je nieuwe naam"),
+                                border: OutlineInputBorder(),
+                              ),
+                              onSubmitted: (_) {
+                                submitName();
+                              },
+                            ),
+                            const SizedBox(height: 20),
+                            TextButton(
+                              child: const Text("Bevestig"),
+                              onPressed: () {
+                                submitName();
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+              );
+            },
           ),
         ],
       ),
@@ -53,7 +110,7 @@ class _UserPageState extends State<UserPage> {
   void _getName() async {
     final preferences = SharedPreferencesAsync();
 
-    final storedName = await preferences.getString("username") ?? "";
+    final storedName = await preferences.getString("username");
 
     setState(() {
       name = storedName;
