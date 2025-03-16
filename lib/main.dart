@@ -19,8 +19,8 @@ class MyApp extends StatelessWidget {
       overlays: [SystemUiOverlay.bottom],
     );
 
-    return Provider(
-      create: (_) => AppDatabase(),
+    return MultiProvider(
+      providers: [Provider<AppDatabase>(create: (_) => AppDatabase())],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: "Truth or Drink",

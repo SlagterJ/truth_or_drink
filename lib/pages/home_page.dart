@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:shared_preferences/shared_preferences.dart";
 import "package:truth_or_drink/pages/root/game_page.dart";
 import "package:truth_or_drink/pages/root/participate_page.dart";
 import "package:truth_or_drink/pages/root/user_page.dart";
@@ -24,6 +25,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    _checkNameExists(context);
+
     return Scaffold(
       bottomNavigationBar: NavigationBar(
         onDestinationSelected: (index) {
@@ -52,6 +55,64 @@ class _HomePageState extends State<HomePage> {
       ),
 
       body: _pages[getCurrentPageIndex()],
+    );
+  }
+
+  void _checkNameExists(BuildContext context) async {
+    final preferences = SharedPreferencesAsync();
+
+    String? username = await preferences.getString("username");
+
+    if (username != null) return;
+    if (!context.mounted) return;
+
+    var nameController = TextEditingController();
+
+    void submitName() {
+      if (nameController.text == "") {
+        return;
+      }
+
+      preferences.setString("username", nameController.text);
+
+      Navigator.pop(context);
+    }
+
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder:
+          (_) => Dialog(
+            child: SizedBox(
+              height: 300,
+              child: Padding(
+                padding: EdgeInsets.all(20.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const Text("Geef jezelf een naam"),
+                    TextField(
+                      controller: nameController,
+                      decoration: const InputDecoration(
+                        label: Text("Je naam"),
+                        border: OutlineInputBorder(),
+                      ),
+                      onSubmitted: (_) {
+                        submitName();
+                      },
+                    ),
+                    TextButton(
+                      child: const Text("Bevestig"),
+                      onPressed: () {
+                        submitName();
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
     );
   }
 }
