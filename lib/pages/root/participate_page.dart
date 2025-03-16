@@ -70,7 +70,7 @@ class _ParticipatePageState extends State<ParticipatePage> {
   }
 
   String _getData() {
-    final Map<String, dynamic> data = {"name": name};
+    final Map<String, dynamic> data = {"type": "name_share", "name": name};
 
     return jsonEncode(data);
   }
