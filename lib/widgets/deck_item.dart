@@ -208,7 +208,12 @@ class DeckItem extends StatelessWidget {
     return StreamBuilder(
       stream: database.watchCardCount(id),
       builder: (_, AsyncSnapshot<int> snapshot) {
-        final count = snapshot.data ?? 0;
+        final int? count = snapshot.data;
+
+        if (count == null) {
+          return const CircularProgressIndicator();
+        }
+
         // make the 'kaarten' text grammatically correct
         final pluralText = count == 1 ? "kaart" : "kaarten";
 
