@@ -33,7 +33,7 @@ class _UserPageState extends State<UserPage> {
                     name!,
                     style: TextStyle(
                       // make the text as big as it can be within the box
-                      fontSize: 400.0,
+                      fontSize: 50,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
