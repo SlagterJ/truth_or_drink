@@ -78,7 +78,13 @@ class DecksPage extends StatelessWidget {
                   void showProblem(String title) {
                     showDialog(
                       context: context,
-                      builder: (_) => Dialog(child: Text(title)),
+                      builder:
+                          (_) => Dialog(
+                            child: Padding(
+                              padding: EdgeInsets.all(20.0),
+                              child: Text(title),
+                            ),
+                          ),
                     );
                   }
 
