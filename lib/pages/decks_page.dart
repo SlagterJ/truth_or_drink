@@ -158,7 +158,15 @@ class DecksPage extends StatelessWidget {
             const Divider(),
             TextButton(
               onPressed: scanQRCode,
-              child: const Text("Importeer via QR-code"),
+              child: const Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Icon(Icons.qr_code_scanner),
+                  SizedBox(width: 10.0),
+                  Text("Importeer via QR-code"),
+                ],
+              ),
             ),
           ],
         ),
