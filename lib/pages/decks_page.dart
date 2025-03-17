@@ -1,3 +1,5 @@
+import "dart:convert";
+
 import "package:flutter/material.dart";
 import "package:flutter/services.dart";
 import "package:mobile_scanner/mobile_scanner.dart";
@@ -68,11 +70,56 @@ class DecksPage extends StatelessWidget {
               padding: EdgeInsets.all(20),
               child: MobileScanner(
                 controller: MobileScannerController(
-                  detectionSpeed: DetectionSpeed.normal,
+                  detectionSpeed: DetectionSpeed.noDuplicates,
                 ),
                 onDetect: (capture) {
                   HapticFeedback.vibrate();
-                  Navigator.pop(context);
+
+                  void showProblem(String title) {
+                    showDialog(
+                      context: context,
+                      builder: (_) => Dialog(child: Text(title)),
+                    );
+                  }
+
+                  final barcode = capture.barcodes.firstOrNull;
+
+                  if (barcode == null) {
+                    showProblem("Er is iets mis gegaan");
+
+                    return;
+                  }
+
+                  final data = jsonDecode(barcode.rawValue.toString());
+
+                  if (data["type"] != "deck_share") {
+                    showProblem("Dit is geen valide QR-code");
+
+                    return;
+                  }
+
+                  void insertDeck() async {
+                    final database = Provider.of<AppDatabase>(
+                      context,
+                      listen: false,
+                    );
+
+                    String deckTitle = data["title"];
+                    List<dynamic> cards = data["cards"];
+
+                    final deckId = await database.insertDeck(deckTitle);
+
+                    for (final card in cards) {
+                      await database.insertCard(card, deckId);
+                    }
+                  }
+
+                  try {
+                    insertDeck();
+                    Navigator.pop(context);
+                  } catch (_) {
+                    showProblem("Er is iets mis gegaan");
+                  }
                 },
               ),
             ),

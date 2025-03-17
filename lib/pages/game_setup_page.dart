@@ -1,3 +1,5 @@
+import "dart:convert";
+
 import "package:flutter/material.dart";
 import "package:flutter/services.dart";
 import "package:mobile_scanner/mobile_scanner.dart";
@@ -167,10 +169,38 @@ class _GameSetupPageState extends State<GameSetupPage> {
                   width: 350.0,
                   child: MobileScanner(
                     controller: MobileScannerController(
-                      detectionSpeed: DetectionSpeed.normal,
+                      detectionSpeed: DetectionSpeed.noDuplicates,
                     ),
                     onDetect: (capture) {
                       HapticFeedback.vibrate();
+
+                      void showProblem(String title) {
+                        showDialog(
+                          context: context,
+                          builder: (_) => Dialog(child: Text(title)),
+                        );
+                      }
+
+                      final barcode = capture.barcodes.firstOrNull;
+
+                      if (barcode == null) {
+                        showProblem("Er is iets mis gegaan");
+
+                        return;
+                      }
+
+                      final data = jsonDecode(barcode.rawValue.toString());
+
+                      if (data["type"] != "name_share") {
+                        showProblem("Dit is geen valide QR-code");
+
+                        return;
+                      }
+
+                      setState(() {
+                        players.add(data["name"]);
+                      });
+
                       Navigator.pop(context);
                     },
                   ),

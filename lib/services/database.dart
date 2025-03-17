@@ -34,7 +34,7 @@ class AppDatabase extends _$AppDatabase {
   }
 
   Stream<List<Deck>> watchAllDecks() => select(decks).watch();
-  Future insertDeck(String title) async =>
+  Future<int> insertDeck(String title) async =>
       await into(decks).insert(DecksCompanion.insert(title: title));
   Future deleteDeck(int id) async =>
       await (delete(decks)..where((deck) => deck.id.equals(id))).go();
@@ -62,7 +62,7 @@ class AppDatabase extends _$AppDatabase {
       (select(cards)..where((card) => card.deck.equals(id))).watch();
   Future<List<Card>> selectCardsFromDeck(int id) async =>
       await (select(cards)..where((card) => card.deck.equals(id))).get();
-  Future insertCard(String question, int deckId) async => await into(
+  Future<int> insertCard(String question, int deckId) async => await into(
     cards,
   ).insert(CardsCompanion.insert(question: question, deck: deckId));
   Future deleteCard(int id) async =>
