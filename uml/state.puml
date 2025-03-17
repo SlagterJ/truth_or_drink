@@ -1,0 +1,14 @@
+@startuml state
+hide empty description
+
+[*] -> TurnNotAccepted
+
+TurnNotAccepted -> Question : [turnAccepted == true]
+
+Question -> TurnNotAccepted : [questions.length > 0]
+
+Question -> EndGame : [questions.length <= 0]
+
+EndGame -> [*]
+
+@enduml

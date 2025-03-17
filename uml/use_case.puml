@@ -1,0 +1,31 @@
+@startuml use_case_diagram
+
+left to right direction
+
+actor "Gebruiker" as g
+
+rectangle "Truth or Drink" {
+    usecase "UC01: Maak kaartenspel" as uc01
+    usecase "UC02: Verwijder kaartenspel" as uc02
+    usecase "UC03: Verander kaartenspel" as uc03
+    usecase "UC04: Deel kaartenspel" as uc04
+    usecase "UC05: Maak kaart" as uc05
+    usecase "UC06: Verwijder kaart" as uc06
+    usecase "UC07: Accepteer kaartsuggestie" as uc07
+
+    usecase "UC08: Host spel" as uc08
+    usecase "UC09: Deel profiel" as uc09
+}
+
+g -- uc01
+g -- uc02
+g -- uc03
+g -- uc04
+g -- uc05
+g -- uc06
+g -- uc07
+g -- uc08
+g -- uc09
+
+
+@enduml

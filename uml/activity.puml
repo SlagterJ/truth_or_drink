@@ -1,0 +1,23 @@
+@startuml
+
+start
+
+:Navigeert naar kaartenpagina;
+
+:Render progress indicator;
+
+:Get cards in deck;
+
+if () then (cards > 0)
+
+:Render cards in deck;
+
+else (cards <= 0)
+
+:Prompt maak een kaart aan;
+
+endif
+
+end
+
+@enduml
