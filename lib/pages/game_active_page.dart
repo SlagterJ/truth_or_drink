@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:shake_gesture/shake_gesture.dart';
 
 import 'home_page.dart';
 
@@ -148,6 +149,12 @@ class _GameActivePageState extends State<GameActivePage> {
                         ),
                       ),
                     ),
+                  ),
+                  ShakeGesture(
+                    child: Container(),
+                    onShake: () {
+                      finishQuestion();
+                    },
                   ),
                 ],
               ),
