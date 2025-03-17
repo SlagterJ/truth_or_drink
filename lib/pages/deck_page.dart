@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:provider/provider.dart";
 import "package:truth_or_drink/services/database.dart" as db;
 import "package:truth_or_drink/widgets/card_item.dart";
+import "package:truth_or_drink/widgets/card_suggestions.dart";
 
 class DeckPage extends StatelessWidget {
   const DeckPage({super.key, required this.id, required this.title});
@@ -62,7 +63,7 @@ class DeckPage extends StatelessWidget {
     }
 
     return SizedBox(
-      height: 250 + MediaQuery.of(context).viewInsets.bottom,
+      height: 310 + MediaQuery.of(context).viewInsets.bottom,
       child: Padding(
         padding: EdgeInsets.only(
           top: 30.0,
@@ -89,6 +90,30 @@ class DeckPage extends StatelessWidget {
             FilledButton.tonal(
               onPressed: submitCard,
               child: const Text("Kaart aanmaken"),
+            ),
+            const Divider(),
+            TextButton(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: const [
+                  Icon(Icons.stars),
+                  SizedBox(width: 10.0),
+                  Text("Suggestie"),
+                ],
+              ),
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder:
+                      (_) => CardSuggestions(
+                        onConfirm: (suggestion) {
+                          questionController.text = suggestion;
+                          submitCard();
+                        },
+                      ),
+                );
+              },
             ),
           ],
         ),
